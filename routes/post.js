@@ -15,17 +15,20 @@ router.get('/home',(req,res)=>{
 
 
 router.post('/create',requiredLogin,(req,res)=>{
-    const { title, description, tag } = req.body;
+    const { title, description, tag, picUrl } = req.body;
+    console.log(req.body)
     const newPost = new PostModel({
         title,
         description,
         PostedBy:req.user,
-        tag
+        tag,
+        photo:picUrl
     });
     newPost.save().then(resultRecord=>{
         res.send({post:resultRecord});
     }).catch(err=>{
-        console.log(err)
+        console.log(err);
+        res.status(400).send({error:"This is embarasing! Try again later!"})
     })
 
 })

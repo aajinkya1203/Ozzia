@@ -13,6 +13,7 @@ const requiredLogin = require('../middleware/authorization');
 
 router.post('/signup',(req,res)=>{
     const { fname, lname, email, password } = req.body;
+    console.log(req.body)
     if(!email || !fname || !lname || !password){
         return res.status(422)
                 .send({error:"Kindly provide all details"});
@@ -31,7 +32,7 @@ router.post('/signup',(req,res)=>{
                 password: hashedpwd
             });
             newUser.save().then(response=>{
-                res.send({message:"User successfully created! Woohoo!"})
+                res.send({message:"User successfully created! Woohoo! Login to join the party!"})
             }).catch(err=>{
                 return res.status(400)
                         .send({error:"Error creating an account!\n Please try again"})
@@ -47,8 +48,9 @@ router.post('/signup',(req,res)=>{
     })
 })
 
-router.post('/signin',(req,res)=>{
+router.post('/login',(req,res)=>{
     const { email, password } = req.body;
+    // console.log(req.body)
     // checking if all information has been provided
     if( !email || !password ){
         return res.status(422)
@@ -65,7 +67,9 @@ router.post('/signin',(req,res)=>{
                 if(didMatch){
                     // res.send({message:"Successfully logged in!"})
                     const token = jwt.sign({_id:savedUser._id},JWT_SECRET);
-                    res.send({token});
+                    const { fname, lname, email, _id } = savedUser;
+                    console.log(email)
+                res.send({token,message:"Login Successful! Off you go!",user:{fname, lname, email, _id}});
                 }
                 else{
                     return res.status(422)
