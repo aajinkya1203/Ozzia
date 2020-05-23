@@ -2,27 +2,39 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../layout/Navbar'
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import SideTags from './SideTags'
+import SideTags from './SideTags';
+import M from 'materialize-css'
 
 
-const Profile=(props)=> {
-    const [myPost,setPosts] = useState([]);
+const UserProfile=(props)=> {
+    const [profile,setProfile] = useState([]);
+    const [person,setPerson] = useState([]);
     useEffect(()=>{
         window.$(document).ready(function(){
             window.$('.sidenav').sidenav();
         });
         if(props.user===null && localStorage.getItem("jwt")){
             props.updateRedux()
-        }
-        fetch('/myposts',{
+        }    
+        fetch(`/user/${props.match.params.id}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt") 
             },
             method:"GET"
         }).then(res=>res.json()).then(data=>{
-            setPosts(data.myposts);
+            setProfile(data.posts);
+            setPerson(data.user)
+        }).catch(err=>{
+            console.log(err);
+            M.toast({html:"Oopsie! We didn't mean this to happen! Try again!"})
         })
+        console.log(profile)
     },[])
+    // if(props.user===null && localStorage.getItem("jwt")){
+    //     props.updateRedux()
+    // }
+    // if(!props.user) return <Redirect to= {`/profile/${props.match.params.id}`} />
+    // if(!localStorage.getItem("user")) return <Redirect to='/' />
     if(props.user===null && !localStorage.getItem("jwt")){
         return <Redirect to='/' />
     }
@@ -37,14 +49,14 @@ const Profile=(props)=> {
                 PostID:id
             })
         }).then(res=>res.json()).then(result=>{
-            const newData = myPost.map(item=>{
+            const newData = profile.map(item=>{
                 if(result.message._id==item._id){
                     return result.message;
                 }else{
                     return item;
                 }
             })
-            setPosts(newData);
+            setProfile(newData);
         }).catch(err=>{
             console.log(err)
         })
@@ -61,24 +73,24 @@ const Profile=(props)=> {
             })
         }).then(res=>res.json()).then(result=>{
             // console.log(data);
-            const newData = myPost.map(item=>{
+            const newData = profile.map(item=>{
                 if(result.message._id===item._id){
                     return result.message;
                 }else{
                     return item;
                 }
             })
-            setPosts(newData);
+            setProfile(newData);
         }).catch(err=>{
             console.log(err)
         })
     }
-
-
     return (
+        // wrapper div
+
         <>
         {
-            props.user && myPost ? (
+            props.user && profile!==0  && person.length!==0 ? (
                 <div>
                     <Navbar />
                     <div style={{maxWidth:'80%',margin:'0px auto'}}>
@@ -97,29 +109,27 @@ const Profile=(props)=> {
                                     height:"180px",
                                     width:"180px",
                                     borderRadius:"90px",
-                                }} alt="Profile pic"
-                                    className="responsive-img"
-                                />
+                                }} alt="Profile pic"/>
                             </div>
                             {/* detail div */}
                             <div>
-                                <h3 className="flow-text">{ props.user.fname +" "+props.user.lname }</h3>
+                                <h3>{ person.fname +" "+person.lname }</h3>
                                 <div style={{
                                     display:"flex",
                                     justifyContent:"space-between",
                                     width:"110%"
                                 }}>
-                                    <h6 className="flow-text">{myPost.length} posts</h6>
-                                    <h6 className="flow-text">40 followers</h6>
-                                    <h6 className="flow-text">40 following</h6>
+                                    <h6>{profile.length} posts</h6>
+                                    <h6>40 followers</h6>
+                                    <h6>40 following</h6>
                                 </div>
                             </div>
                         </div>
                         <hr className="seperation"/>
                         <div className="gallery">
                             {
-                                myPost? (
-                                    myPost.map(post=>{
+                                profile.length!==0? (
+                                    profile.map(post=>{
                                         return(
                                             <div className="item z-depth-2" key={post._id}>
                                                 <div className="chip" style={{margin:"5px 20px"}}>{ post.tag }</div>
@@ -160,13 +170,10 @@ const Profile=(props)=> {
                     </div>
                     <SideTags />
                 </div>
-    
-            ) : (
-                <h2>Loading...</h2>
-            ) 
+          
+            ) : (<h2>Loading</h2>)
         }
         </>
-        
     )
 }
 
@@ -182,4 +189,4 @@ const mapStateToProps = (state)=>{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfile)

@@ -18,6 +18,17 @@ const postSchema = new mongoose.Schema({
         type: String,
         default:"Funny"
     },
+    likes:[{
+        type: ObjectId,
+        ref:"User"
+    }],
+    comments:[{
+        text:String,
+        postedBy:{
+            type:ObjectId,
+            ref:"User"
+        }
+    }],
     PostedBy:{
         type: ObjectId,
         ref:"User"

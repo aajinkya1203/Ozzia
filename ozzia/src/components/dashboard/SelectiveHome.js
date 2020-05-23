@@ -9,20 +9,22 @@ import SideTags from '../profile/SideTags'
 
 
 const Home=(props)=> {
+    console.log(props)
     const [data,setData] = useState("");
     useEffect(()=>{
         window.$(document).ready(function(){
             window.$('.sidenav').sidenav();
         });
-        fetch('/home',{
+        fetch(`/home/${props.match.params.tag}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             },
             method:"GET"
         }).then(res=>res.json()).then(datai=>{
-            setData(datai.posts);
+            console.log(datai)
+            setData(datai.group);
         })
-    },[])
+    },[props.match.params.tag])
     if(props.user===null && localStorage.getItem("jwt")){
         props.updateRedux()
     }
@@ -150,10 +152,11 @@ const Home=(props)=> {
             <Navbar />
             <div className="home">
                 {
-                    data && data.map(item=>{
+                    data.length !== 0 ? data.map(item=>{
+                        console.log(item)
                         return(
                             <div className="card homeCard" key={item._id}>
-                                <Link to={`/profile/${ item.PostedBy._id }`}>
+                                <Link to="/profile/:id">
                                     <div className="chip" style={{margin:"5px 20px"}}>
                                         <img alt="post" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
                                         { item.PostedBy.fname + item.PostedBy.lname }
@@ -250,7 +253,12 @@ const Home=(props)=> {
                             </div>
                             
                         )
-                    })
+                    }) : (
+                        <div>
+                            So empty
+
+                        </div>
+                    )
                 }
                 
             </div>

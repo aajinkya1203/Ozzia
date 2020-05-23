@@ -214,3 +214,22 @@ hr{
   height: max-content;
   margin: 20px auto;
 }
+
+/* like and unlike effect */
+.halfway-fab .heart{
+  color:#f44336
+}
+.halfway-fab i{
+  color:#fff
+}
+
+.floatAlways{
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+}
+
+#slide-out *{
+  color:white !important;
+  font-weight: 500;
+}

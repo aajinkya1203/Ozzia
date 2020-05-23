@@ -22,8 +22,8 @@ class Login extends Component {
         })
     }
     handleSubmit=(e)=>{
-        console.log(this.state);
         e.preventDefault();
+        document.getElementById("loader").className="progress";
         fetch('/login',{
             method:"POST",
             headers:{
@@ -88,6 +88,9 @@ class Login extends Component {
                         </div>
                         <div className="input-field">
                             <input type="submit" id="sbmt" value="LOG IN!" className="pink lighten-3 btn waves-effect waves-light" required/>
+                        </div>
+                        <div className="" id="loader">
+                            <div className="indeterminate"></div>
                         </div>
                     </div>
                 </form>

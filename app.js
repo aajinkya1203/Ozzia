@@ -10,11 +10,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(require('./routes/auth'));
 app.use(require('./routes/post'));
+app.use(require('./routes/user'));
 
 // connecting to mongodb atlas
 var options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify:false
 }
 
 mongoose.connect(uri,options,()=>{

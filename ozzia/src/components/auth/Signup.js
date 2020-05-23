@@ -25,6 +25,7 @@ class Signup extends Component {
     }
     PostData=(e)=>{
         e.preventDefault();
+        document.getElementById("loader").className="progress";
         fetch('/signup',{
             method:"POST",
             headers:{
@@ -96,6 +97,9 @@ class Signup extends Component {
                         </div>
                         <div className="input-field">
                             <input type="submit" id="sbmt" value="CREATE!" className="pink lighten-3 btn waves-effect waves-light" required/>
+                        </div>
+                        <div className="" id="loader">
+                            <div className="indeterminate"></div>
                         </div>
                     </div>
                 </form>

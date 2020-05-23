@@ -6,7 +6,9 @@ import intro from './components/dashboard/intro';
 import Signup from './components/auth/Signup'
 import Login from './components/auth/Login'
 import Profile from './components/profile/profile';
+import UserProfile from './components/profile/UserProfile';
 import Home from './components/dashboard/home';
+import SelectiveHome from './components/dashboard/SelectiveHome';
 import CreatePost from './components/profile/CreatePost';
 
 function App() {
@@ -17,7 +19,9 @@ function App() {
           <Route exact path="/" component = { intro } />
           <Route path="/signup" component = { Signup } />
           <Route path="/login" component = { Login } />
+          <Route path="/profile/:id" component = { UserProfile } />
           <Route path="/profile" component = { Profile } />
+          <Route path="/home/:tag" component = { SelectiveHome } />
           <Route path="/home" component = { Home } />
           <Route path="/create" component = { CreatePost } />
         </Switch>
