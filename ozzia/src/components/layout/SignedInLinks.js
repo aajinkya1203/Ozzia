@@ -8,7 +8,7 @@ const SignedInLinks=(props)=> {
         <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li><Link to="/create" className="waves-effect waves-light">Create Post</Link></li>
             <li><Link to="/create" className="waves-effect waves-light">Notifications</Link></li>
-            <li><Link to="/home" className="waves-effect waves-light">Your Friends' Posts</Link></li>
+            <li><Link to="/subbed" className="waves-effect waves-light">Your Friends' Posts</Link></li>
             <li><Link className="waves-effect waves-light"
                 onClick={()=>{
                     localStorage.clear();

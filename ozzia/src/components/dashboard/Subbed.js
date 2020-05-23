@@ -6,21 +6,22 @@ import { Redirect } from 'react-router-dom';
 import M from 'materialize-css';
 import SideTags from '../profile/SideTags'
 import LoadingScreen from '../../images/LoadingScreen.gif'
+import empty from '../../images/empty2.svg'
 
 
-
-const Home=(props)=> {
+const Subbed=(props)=> {
     const [data,setData] = useState("");
     useEffect(()=>{
         window.$(document).ready(function(){
             window.$('.sidenav').sidenav();
         });
-        fetch('/home',{
+        fetch('/subbedPost',{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt")
             },
             method:"GET"
         }).then(res=>res.json()).then(datai=>{
+            console.log(datai)
             setData(datai.posts);
         })
     },[])
@@ -149,12 +150,12 @@ const Home=(props)=> {
     return (
         <>
         {
-            data.length!==0 ? (
+            props.user && data ? (
                 <div>
                     <Navbar />
                     <div className="home">
                         {
-                            data && data.map(item=>{
+                            data.length!==0 ? data.map(item=>{
                                 return(
                                     <div className="card homeCard" key={item._id}>
                                         <Link to={
@@ -258,13 +259,21 @@ const Home=(props)=> {
                                     </div>
                                     
                                 )
-                            })
+                            }) : (
+                                <div className="container notFound">
+                                    <img src={empty} className="responsive-img" alt="empty" />
+                                    {/* <Link to='/create' className="waves-effect waves-light btn flow-text">
+                                        <i className="material-icons left flow-text">add</i>
+                                    CREATE POST
+                                    </Link> */}
+                                </div>
+                            )
                         }
                         
                     </div>
                     <SideTags />
                 </div>
-            ):(
+            ) : (
                 <div className="loading">
                     <img src={LoadingScreen} className="responsive-img" alt="loading..." />
                 </div>
@@ -286,4 +295,4 @@ const mapDispatchToProps = (dispatch)=>{
     }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Home)
+export default connect(mapStateToProps,mapDispatchToProps)(Subbed)

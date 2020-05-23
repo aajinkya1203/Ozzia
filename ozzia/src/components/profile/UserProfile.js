@@ -3,7 +3,9 @@ import Navbar from '../layout/Navbar'
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
 import SideTags from './SideTags';
-import M from 'materialize-css'
+import M from 'materialize-css';
+import LoadingScreen from '../../images/LoadingScreen.gif';
+import empty from '../../images/emptyProfile.svg'
 
 
 const UserProfile=(props)=> {
@@ -15,7 +17,7 @@ const UserProfile=(props)=> {
         });
         if(props.user===null && localStorage.getItem("jwt")){
             props.updateRedux()
-        }    
+        }
         fetch(`/user/${props.match.params.id}`,{
             headers:{
                 "Authorization":"Bearer "+localStorage.getItem("jwt") 
@@ -85,9 +87,64 @@ const UserProfile=(props)=> {
             console.log(err)
         })
     }
+
+    const followUser = ()=>{
+        fetch('/follow',{
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+localStorage.getItem("jwt")
+            },
+            body:JSON.stringify({
+                followID:props.match.params.id
+            })
+        }).then(res=>res.json()).then(woho=>{
+            console.log(woho);
+            props.updateUser(woho.result.followers,woho.result.following);
+            localStorage.setItem("user",JSON.stringify(woho.result));
+            setPerson((prevState)=>{
+                console.log(prevState)
+                return{
+                    ...prevState,
+                    followers:[...prevState.followers,props.user._id]
+                }
+            })
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+    const unfollowUser = ()=>{
+        fetch('/unfollow',{
+            method:"PUT",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization":"Bearer "+localStorage.getItem("jwt")
+            },
+            body:JSON.stringify({
+                unfollowID:props.match.params.id
+            })
+        }).then(res=>res.json()).then(woho=>{
+            console.log(woho);
+            props.updateUser(woho.result.followers,woho.result.following);
+            localStorage.setItem("user",JSON.stringify(woho.result));
+            setPerson((prevState)=>{
+                const newFollowerList = prevState.followers.filter(item=>{
+                    return item !== props.user._id
+                })
+                return{
+                    ...prevState,
+                    followers:newFollowerList
+                }
+            })
+        }).catch(err=>{
+            console.log(err)
+        })
+    }
+    if(props.user){
+        if(props.match.params.id.toString()===props.user._id.toString()) return <Redirect to='/profile' />
+    }
     return (
         // wrapper div
-
         <>
         {
             props.user && profile!==0  && person.length!==0 ? (
@@ -120,9 +177,34 @@ const UserProfile=(props)=> {
                                     width:"110%"
                                 }}>
                                     <h6>{profile.length} posts</h6>
-                                    <h6>40 followers</h6>
-                                    <h6>40 following</h6>
+                                    <h6>{person.followers.length} followers</h6>
+                                    <h6>{person.following.length} following</h6>
                                 </div>
+                                {
+                                    props.user.following.includes(props.match.params.id) ? 
+                                    <a class="waves-effect waves-light btn-small"
+                                        href="#!"
+                                        onClick={()=>{unfollowUser()}}
+                                        onMouseUp={()=>{
+                                            document.querySelectorAll(".waves-ripple ").forEach(item=>{item.style.opacity=0})
+                                         }}
+                                    >
+                                        <i class="material-icons left">person</i>
+                                    UNFOLLOW
+                                    </a>
+                                    :
+                                    <a class="waves-effect waves-light btn-small"
+                                    href="#!"
+                                    onClick={()=>{followUser()}}
+                                    onMouseUp={()=>{
+                                        document.querySelectorAll(".waves-ripple ").forEach(item=>{item.style.opacity=0})
+                                     }}
+                                >
+                                    <i class="material-icons left">person_add</i>
+                                FOLLOW
+                                </a>
+                                }
+                                
                             </div>
                         </div>
                         <hr className="seperation"/>
@@ -159,10 +241,8 @@ const UserProfile=(props)=> {
                                     })
                                 ) : (
                                 
-                                    <div>
-                                        <h6>Wow! So Empty!</h6>
-                                        <i class="large material-icons" style={{fontSize:"4rem"}}>wallpaper</i>
-                                        <i><Link to='/create'>Create a Post now!</Link></i>
+                                    <div className="container notFound">
+                                        <img src={empty} className="responsive-img" alt="empty" />
                                     </div>
                                 )
                             }
@@ -171,7 +251,11 @@ const UserProfile=(props)=> {
                     <SideTags />
                 </div>
           
-            ) : (<h2>Loading</h2>)
+            ) : (
+                <div className="loading">
+                    <img src={LoadingScreen} className="responsive-img" alt="loading..." />
+                </div>
+            )
         }
         </>
     )
@@ -179,7 +263,14 @@ const UserProfile=(props)=> {
 
 const mapDispatchToProps = (dispatch) =>{
     return{
-        updateRedux: ()=>dispatch({type:"ALL"})
+        updateRedux: ()=>dispatch({type:"ALL"}),
+        updateUser:(followers,following)=>dispatch({
+            type:"UPDATE",
+            payload:{
+                followers,
+                following
+            }
+        })
     }
 }
 

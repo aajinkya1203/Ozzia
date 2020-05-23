@@ -34,7 +34,7 @@ class Login extends Component {
                 password:this.state.password
             })
         }).then(res=>res.json()).then(data=>{
-            console.log(this.props)
+            console.log(data)
             if(data.error){
                 M.toast({html:data.error});
             }else{

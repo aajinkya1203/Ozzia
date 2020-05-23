@@ -13,6 +13,16 @@ router.get('/home',(req,res)=>{
             console.log(err);
         })
 })
+router.get('/subbedPost',requiredLogin,(req,res)=>{
+    PostModel.find({PostedBy:{$in:req.user.following}})
+        .populate("PostedBy","_id fname lname")
+        .populate("comments.postedBy","_id fname lname")
+        .then(posts=>{
+            res.send({posts})
+        }).catch(err=>{
+            console.log(err);
+        })
+})
 
 
 router.post('/create',requiredLogin,(req,res)=>{

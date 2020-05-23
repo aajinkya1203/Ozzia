@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import Navbar from '../layout/Navbar'
 import { connect } from 'react-redux';
 import { Redirect, Link } from 'react-router-dom';
-import SideTags from './SideTags'
-
+import SideTags from './SideTags';
+import LoadingScreen from '../../images/LoadingScreen.gif'
+import empty from '../../images/empty1.svg'
 
 const Profile=(props)=> {
     const [myPost,setPosts] = useState([]);
     useEffect(()=>{
+        console.log(props.user)
         window.$(document).ready(function(){
             window.$('.sidenav').sidenav();
         });
@@ -110,15 +112,15 @@ const Profile=(props)=> {
                                     width:"110%"
                                 }}>
                                     <h6 className="flow-text">{myPost.length} posts</h6>
-                                    <h6 className="flow-text">40 followers</h6>
-                                    <h6 className="flow-text">40 following</h6>
+                                    <h6 className="flow-text">{props.user.followers.length} followers</h6>
+                                    <h6 className="flow-text">{props.user.following.length} following</h6>
                                 </div>
                             </div>
                         </div>
                         <hr className="seperation"/>
                         <div className="gallery">
                             {
-                                myPost? (
+                                myPost.length!==0? (
                                     myPost.map(post=>{
                                         return(
                                             <div className="item z-depth-2" key={post._id}>
@@ -149,10 +151,12 @@ const Profile=(props)=> {
                                     })
                                 ) : (
                                 
-                                    <div>
-                                        <h6>Wow! So Empty!</h6>
-                                        <i class="large material-icons" style={{fontSize:"4rem"}}>wallpaper</i>
-                                        <i><Link to='/create'>Create a Post now!</Link></i>
+                                    <div className="container notFound">
+                                        <img src={empty} className="responsive-img" alt="empty" />
+                                        <Link to='/create' className="waves-effect waves-light btn flow-text">
+                                            <i className="material-icons left flow-text">add</i>
+                                        CREATE POST
+                                        </Link>
                                     </div>
                                 )
                             }
@@ -162,7 +166,9 @@ const Profile=(props)=> {
                 </div>
     
             ) : (
-                <h2>Loading...</h2>
+                <div className="loading">
+                    <img src={LoadingScreen} className="responsive-img" alt="loading..." />
+                </div>
             ) 
         }
         </>

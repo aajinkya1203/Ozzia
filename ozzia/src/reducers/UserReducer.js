@@ -13,6 +13,13 @@ export const UserReducer=(state=initState,action)=>{
                 return state;
             }
         }
+        case 'UPDATE':{
+            return{
+                ...state,
+                followers:action.payload.followers,
+                following:action.payload.following
+            }
+        }
         case "LOGOUT":{
             return null
         }

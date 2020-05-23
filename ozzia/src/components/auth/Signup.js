@@ -10,11 +10,14 @@ class Signup extends Component {
         fname:"",
         lname:"",
         email:"",
-        password:""
+        password:"",
+        photo:"",
+        url:""
     }
     componentDidMount(){
         window.$(document).ready(function(){
             M.updateTextFields();
+            window.$('.modal').modal();
             window.$("input.toChange").val("").trigger("change");
         })
     }
@@ -95,6 +98,33 @@ class Signup extends Component {
                             <label htmlFor="password">Desired Password:</label>
                             <input className="toChange" onChange={this.handleChange} value={this.state.password} type="password" id="password" name="password" required/>
                         </div>
+                        {/* btn for file upload */}
+                        <label style={{display:"inline-block",fontSize:'1.1em'}}>Select a Profile Picture: </label>
+                        <a href="#modal1" className="btn-floating btn-large modal-trigger waves-effect waves-light pink lighten-3" style={{
+                            display:"inline-block",
+                            margin:"0 20px"
+                        }}>
+                            <i className="material-icons">camera_alt</i>
+                        </a>
+                        {/* file upload */}
+                        <div id="modal1" className="modal">
+                            <div className="modal-content">
+                                <h4>Upload a Profile Picture</h4>
+                                    <div className="file-field input-field">
+                                        <div className="btn">
+                                            <span>File</span>
+                                            <input type="file" onChange={(e)=>{this.setState({photo:e.target.files[0]})}} id="photo"/>
+                                        </div>
+                                        <div className="file-path-wrapper">
+                                            <input className="file-path validate" type="text" required/>
+                                        </div>
+                                    </div>
+                            </div>
+                            <div className="modal-footer">
+                                <a href="#!" className="modal-close waves-effect waves-green btn-flat">SELECT</a>
+                            </div>
+                        </div>
+                        
                         <div className="input-field">
                             <input type="submit" id="sbmt" value="CREATE!" className="pink lighten-3 btn waves-effect waves-light" required/>
                         </div>

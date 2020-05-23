@@ -3,7 +3,8 @@ import Navbar from '../layout/Navbar';
 import M from 'materialize-css'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import SideTags from './SideTags'
+import SideTags from './SideTags';
+import LoadingScreen from '../../images/LoadingScreen.gif'
 
 class CreatePost extends Component{
     state={
@@ -179,7 +180,9 @@ class CreatePost extends Component{
                 </div>
                 
                 ) : (
-                    <h2>Loading...</h2>
+                    <div className="loading">
+                        <img src={LoadingScreen} className="responsive-img" alt="loading..." />
+                    </div>
                 )
             }
             </> 
