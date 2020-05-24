@@ -28,11 +28,13 @@ const SideTags=(props)=>{
                                 <div className="background">
                                     <img src={ pewdsBG } />
                                 </div>
-                                {/* <a href="#user"><img className="circle" src="images/yuna.jpg"/></a> */}
-                                <a href="javascript:void(0)">
+                                <a href="#user">
+                                    <img className="circle" src={props.user.photo}/>
+                                </a>
+                                <a href="#name">
                                 <span className="white-text name flow-text">{ props.user.fname +" "+props.user.lname }</span>
                                 </a>
-                                <a href="javascript:void(0)">
+                                <a href="#email">
                                     <span className="white-text email flow-text">{ props.user.email }</span>
                                 </a>
                             </div>

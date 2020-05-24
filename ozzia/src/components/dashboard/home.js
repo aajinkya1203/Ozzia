@@ -163,7 +163,8 @@ const Home=(props)=> {
                                             `/profile/${ item.PostedBy._id }`
                                             }>
                                             <div className="chip" style={{margin:"5px 20px"}}>
-                                                <img alt="post" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" />
+                                                <img alt="post" 
+                                                src={item.PostedBy.photo} />
                                                 { item.PostedBy.fname + item.PostedBy.lname }
                                             </div>
                                             <span style={{ padding:"0 5px" }}>|</span>

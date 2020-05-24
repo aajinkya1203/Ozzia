@@ -36,6 +36,7 @@ class Login extends Component {
         }).then(res=>res.json()).then(data=>{
             console.log(data)
             if(data.error){
+                document.getElementById("loader").className="";
                 M.toast({html:data.error});
             }else{
                 localStorage.setItem("jwt",data.token);

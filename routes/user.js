@@ -69,4 +69,19 @@ router.put('/unfollow',requiredLogin,(req,res)=>{
     })
 })
 
+
+router.put('/updatePic',requiredLogin,(req,res)=>{
+    UserModel.findByIdAndUpdate(req.user._id,{
+        $set: {photo:req.body.photo}
+    },{
+        new:true
+    },(err,result)=>{
+        console.log(result)
+        if(err){
+            return res.status(422).send({error:"This is embarrasing! Couldn't update your profile! Please try again later!"})
+        }
+        res.send({result})
+    })
+})
+
 module.exports = router;

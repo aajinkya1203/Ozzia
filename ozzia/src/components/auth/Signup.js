@@ -12,7 +12,7 @@ class Signup extends Component {
         email:"",
         password:"",
         photo:"",
-        url:""
+        url:"https://res.cloudinary.com/engima/image/upload/v1590309246/default_yotaqs.png"
     }
     componentDidMount(){
         window.$(document).ready(function(){
@@ -26,9 +26,38 @@ class Signup extends Component {
             [e.target.id]:e.target.value
         })
     }
-    PostData=(e)=>{
+    PostDetails=(e)=>{
         e.preventDefault();
         document.getElementById("loader").className="progress";
+        if(this.state.photo){
+            const fileData = new FormData();
+            fileData.append("file",this.state.photo);
+            fileData.append("upload_preset","enigma");
+            fileData.append("cloud_name","engima");
+
+            // saving to cloud first
+            fetch('https://api.cloudinary.com/v1_1/engima/image/upload',{
+                method:"POST",
+                body:fileData
+            }).then(res=>res.json()).then(data=>{
+                // console.log(data);
+                this.setState({
+                    url:data.url
+                });
+                // saving to db
+                this.PostData();
+            }).catch(err=>{
+                console.log(err);
+                document.getElementById("loader").className="";
+                M.toast({html:"Something didn't go right! Try again!"})
+                return err
+            })
+        }else{
+            this.PostData();
+        }
+
+    }
+    PostData=(e)=>{
         fetch('/signup',{
             method:"POST",
             headers:{
@@ -38,11 +67,13 @@ class Signup extends Component {
                 fname:this.state.fname,
                 lname:this.state.lname,
                 email:this.state.email,
-                password:this.state.password
+                password:this.state.password,
+                picUrl:this.state.url
             })
         }).then(res=>res.json()
         ).then(data=>{
             if(data.error){
+                document.getElementById("loader").className="";
                 M.toast({html:data.error});
             }else{
                 M.toast({html:data.message});
@@ -76,7 +107,7 @@ class Signup extends Component {
                         </Link>
                     </h5>
                 </div>
-                <form className="col s7" id="formbar" onSubmit={this.PostData}>
+                <form className="col s7" id="formbar" onSubmit={this.PostDetails}>
                     <h4 className="formTitle">
                         Create A New Account !
                     </h4>
@@ -100,12 +131,15 @@ class Signup extends Component {
                         </div>
                         {/* btn for file upload */}
                         <label style={{display:"inline-block",fontSize:'1.1em'}}>Select a Profile Picture: </label>
-                        <a href="#modal1" className="btn-floating btn-large modal-trigger waves-effect waves-light pink lighten-3" style={{
+                        <a href="#modal1" className="btn-floating btn-large modal-trigger waves-effect waves-light red" style={{
                             display:"inline-block",
                             margin:"0 20px"
                         }}>
                             <i className="material-icons">camera_alt</i>
                         </a>
+                        <p className="grey-text">
+                            <i>You can add / edit your profile picture later too!</i>
+                        </p>
                         {/* file upload */}
                         <div id="modal1" className="modal">
                             <div className="modal-content">
@@ -116,7 +150,7 @@ class Signup extends Component {
                                             <input type="file" onChange={(e)=>{this.setState({photo:e.target.files[0]})}} id="photo"/>
                                         </div>
                                         <div className="file-path-wrapper">
-                                            <input className="file-path validate" type="text" required/>
+                                            <input className="file-path validate" type="text"/>
                                         </div>
                                     </div>
                             </div>

@@ -151,56 +151,54 @@ const UserProfile=(props)=> {
                 <div>
                     <Navbar />
                     <div style={{maxWidth:'80%',margin:'0px auto'}}>
-                        <div className="container detContainer center"
-                            style={{
-                                display:"flex",
-                                justifyContent:"space-around",
-                                margin:"18px 0px",
-                                
-                            }}>
+                        <div className="container detContainer center row"
+                            >
                             {/* image div */}
-                            <div style={{padding:'0 20px'}}>
+                            <div style={{padding:'0 20px'}} className="col s12 m8 offset-m2 l6 xl4 center">
                                 <img 
-                                src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" 
+                                src={person.photo} 
+                                className="responsive-img"
                                 style={{
-                                    height:"180px",
-                                    width:"180px",
-                                    borderRadius:"90px",
-                                }} alt="Profile pic"/>
+                                    borderRadius:"1000px",
+                                    marginBottom:"20px"
+                                }} 
+                                alt="Profile pic"/>
                             </div>
                             {/* detail div */}
-                            <div>
-                                <h3>{ person.fname +" "+person.lname }</h3>
-                                <div style={{
-                                    display:"flex",
-                                    justifyContent:"space-between",
-                                    width:"110%"
-                                }}>
-                                    <h6>{profile.length} posts</h6>
-                                    <h6>{person.followers.length} followers</h6>
-                                    <h6>{person.following.length} following</h6>
+                            <div className="col s12 l6 xl8">
+                                <h3 className="flow-text s8 offset-s2 l6 xl12">
+                                    { person.fname +" "+person.lname }
+                                </h3>
+                                <div 
+                                    className="col s12 m12 xl12 center"
+                                >
+                                    <h6 className="flow-text col s12 l8 offset-l2 xl4 center">{profile.length} posts</h6>
+                                    <h6 className="flow-text col s12 l8 offset-l2 xl4 center">{person.followers.length} followers</h6>
+                                    <h6 className="flow-text col s12 l8 offset-l2 xl4 center">{person.following.length} following</h6>
                                 </div>
                                 {
                                     props.user.following.includes(props.match.params.id) ? 
-                                    <a class="waves-effect waves-light btn-small"
+                                    <a 
+                                    className="btn btn-small updatePic modal-trigger waves-effect waves-light red col s12 m8 center offset-m2 l12 xl6 offset-xl3"
                                         href="#!"
                                         onClick={()=>{unfollowUser()}}
                                         onMouseUp={()=>{
                                             document.querySelectorAll(".waves-ripple ").forEach(item=>{item.style.opacity=0})
                                          }}
                                     >
-                                        <i class="material-icons left">person</i>
+                                        <i className="material-icons left">person</i>
                                     UNFOLLOW
                                     </a>
                                     :
-                                    <a class="waves-effect waves-light btn-small"
+                                    <a 
+                                    className="btn btn-small updatePic modal-trigger waves-effect waves-light green col s12 m8 center offset-m2 l12 xl6 offset-xl3"
                                     href="#!"
                                     onClick={()=>{followUser()}}
                                     onMouseUp={()=>{
                                         document.querySelectorAll(".waves-ripple ").forEach(item=>{item.style.opacity=0})
                                      }}
                                 >
-                                    <i class="material-icons left">person_add</i>
+                                    <i className="material-icons left">person_add</i>
                                 FOLLOW
                                 </a>
                                 }
@@ -208,14 +206,23 @@ const UserProfile=(props)=> {
                             </div>
                         </div>
                         <hr className="seperation"/>
-                        <div className="gallery">
+                        <div className="gallery row">
                             {
                                 profile.length!==0? (
                                     profile.map(post=>{
                                         return(
-                                            <div className="item z-depth-2" key={post._id}>
-                                                <div className="chip" style={{margin:"5px 20px"}}>{ post.tag }</div>
-                                                <div style={{display:"block",overflow:"hidden",height:"199px",textAlign:"center"}}>
+                                            <div className="item z-depth-2 col s10 offset-s1 m6 offset-m3 l5 offset-l1 xl3 offset-l1" key={post._id} style={{marginRight:"auto"}}>
+                                                <div className="chip flow-text col s8 center"  
+                                                style={{margin:"5px 20px", textAlign:"start",maxWidth:"max-content",overflow:"hidden"}}
+                                                >{ post.tag }</div>
+                                                <div className="col s12"
+                                                    style={{
+                                                    display:"block",
+                                                    overflow:"hidden",
+                                                    height:"199px",
+                                                    textAlign:"center"
+                                                    }}
+                                                >
                                                     <img className="itemImg"
                                                     style={{height:"100%",width:"auto",margin:"5px auto"}}
                                                     src={ post.photo } 

@@ -25,7 +25,11 @@ const UserSchema = new mongoose.Schema({
     following:[{
         type: ObjectId,
         ref:'User'
-    }]
+    }],
+    photo:{
+        type: String,
+        default:"https://res.cloudinary.com/engima/image/upload/v1590309246/default_yotaqs.png"
+    }
 })
 
 module.exports = mongoose.model("User",UserSchema);

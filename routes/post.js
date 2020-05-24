@@ -5,8 +5,8 @@ const requiredLogin = require('../middleware/authorization');
 
 router.get('/home',(req,res)=>{
     PostModel.find()
-        .populate("PostedBy","_id fname lname")
-        .populate("comments.postedBy","_id fname lname")
+        .populate("PostedBy","_id fname lname photo")
+        .populate("comments.postedBy","_id fname lname photo")
         .then(posts=>{
             res.send({posts})
         }).catch(err=>{
@@ -15,8 +15,8 @@ router.get('/home',(req,res)=>{
 })
 router.get('/subbedPost',requiredLogin,(req,res)=>{
     PostModel.find({PostedBy:{$in:req.user.following}})
-        .populate("PostedBy","_id fname lname")
-        .populate("comments.postedBy","_id fname lname")
+        .populate("PostedBy","_id fname lname photo")
+        .populate("comments.postedBy","_id fname lname photo")
         .then(posts=>{
             res.send({posts})
         }).catch(err=>{
@@ -46,8 +46,8 @@ router.post('/create',requiredLogin,(req,res)=>{
 
 router.get('/myposts',requiredLogin,(req,res)=>{
     PostModel.find({PostedBy:req.user._id})
-        .populate("PostedBy","_id fname lname")
-        .populate("comments.postedBy","lname fname _id")
+        .populate("PostedBy","_id fname lname photo")
+        .populate("comments.postedBy","lname fname _id photo")
         .then(posted=>{
             res.send({myposts:posted})
         }).catch(err=>{
@@ -58,8 +58,8 @@ router.get('/myposts',requiredLogin,(req,res)=>{
 router.get('/home/:tag',requiredLogin,(req,res)=>{
     console.log(req.params.tag)
     PostModel.find({tag:req.params.tag})
-        .populate("PostedBy","_id fname lname")
-        .populate("comments.postedBy","lname fname _id")
+        .populate("PostedBy","_id fname lname photo")
+        .populate("comments.postedBy","lname fname _id photo")
         .then(posts=>{
             console.log(posts)
             res.send({group:posts})
@@ -73,8 +73,8 @@ router.put('/like',requiredLogin,(req,res)=>{
         $push:{ likes: req.user._id }
     },{
         new:true
-    }).populate("PostedBy","_id fname lname")
-    .populate("comments.postedBy","lname fname _id")
+    }).populate("PostedBy","_id fname lname photo")
+    .populate("comments.postedBy","lname fname _id photo")
     .exec((err,result)=>{
         if(err){
             return res.status(422)
@@ -95,8 +95,8 @@ router.put('/comment',requiredLogin,(req,res)=>{
         $push:{ comments: comment }
     },{
         new:true
-    }).populate("comments.postedBy","lname fname _id")
-    .populate("PostedBy","_id fname lname")
+    }).populate("comments.postedBy","lname fname _id photo")
+    .populate("PostedBy","_id fname lname photo")
     .exec((err,result)=>{
         if(err){
             return res.status(422)
@@ -109,8 +109,8 @@ router.put('/comment',requiredLogin,(req,res)=>{
 
 router.delete('/delete/:postID',requiredLogin,(req,res)=>{
     PostModel.findByIdAndRemove(req.params.postID)
-    .populate("PostedBy","_id fname lname")
-    .populate("comments.postedBy","lname fname _id")
+    .populate("PostedBy","_id fname lname photo")
+    .populate("comments.postedBy","lname fname _id photo")
     .then(result=>{
         res.send({result});
     }).catch(err=>{
@@ -124,12 +124,12 @@ router.put('/delete/comment/:postID',requiredLogin,(req,res)=>{
     },{
         multi: true
     })
-    .populate("PostedBy","_id fname lname")
-    .populate("comments.postedBy","lname fname _id")
+    .populate("PostedBy","_id fname lname photo")
+    .populate("comments.postedBy","lname fname _id photo")
     .then(result=>{
         PostModel.findById(req.params.postID)
-        .populate("PostedBy","_id fname lname")
-        .populate("comments.postedBy","lname fname _id")
+        .populate("PostedBy","_id fname lname photo")
+        .populate("comments.postedBy","lname fname _id photo")
         .then(resultDoc=>{
             res.send({title:"Comment Deleted!",message:resultDoc});
         }).catch(err=>{
@@ -148,8 +148,8 @@ router.put('/unlike',requiredLogin,(req,res)=>{
         $pull:{ likes: req.user._id }
     },{
         new:true
-    }).populate("PostedBy","_id fname lname")
-    .populate("comments.postedBy","lname fname _id")
+    }).populate("PostedBy","_id fname lname photo")
+    .populate("comments.postedBy","lname fname _id photo")
     .exec((err,result)=>{
         if(err){
             return res.status(422)

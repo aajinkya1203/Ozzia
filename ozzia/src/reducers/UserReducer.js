@@ -13,6 +13,12 @@ export const UserReducer=(state=initState,action)=>{
                 return state;
             }
         }
+        case 'UPDATEPIC':{
+            return{
+                ...state,
+                photo: action.payload
+            }
+        }
         case 'UPDATE':{
             return{
                 ...state,

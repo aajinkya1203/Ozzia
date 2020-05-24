@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 
 const SignedInLinks=(props)=> {
     return (
-        <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <ul id="nav-mobile" className={props.classID}>
             <li><Link to="/create" className="waves-effect waves-light">Create Post</Link></li>
             <li><Link to="/create" className="waves-effect waves-light">Notifications</Link></li>
             <li><Link to="/subbed" className="waves-effect waves-light">Your Friends' Posts</Link></li>

@@ -12,7 +12,7 @@ const requiredLogin = require('../middleware/authorization');
 // })
 
 router.post('/signup',(req,res)=>{
-    const { fname, lname, email, password } = req.body;
+    const { fname, lname, email, password, picUrl } = req.body;
     console.log(req.body)
     if(!email || !fname || !lname || !password){
         return res.status(422)
@@ -31,7 +31,8 @@ router.post('/signup',(req,res)=>{
                 email,
                 password: hashedpwd,
                 followers:[],
-                following:[]
+                following:[],
+                photo: picUrl
             });
             newUser.save().then(response=>{
                 res.send({message:"User successfully created! Woohoo! Login to join the party!"})
@@ -69,9 +70,9 @@ router.post('/login',(req,res)=>{
                 if(didMatch){
                     // res.send({message:"Successfully logged in!"})
                     const token = jwt.sign({_id:savedUser._id},JWT_SECRET);
-                    const { fname, lname, email, _id, followers, following } = savedUser;
+                    const { fname, lname, email, _id, followers, following, photo } = savedUser;
                     console.log(following)
-                res.send({token,message:"Login Successful! Off you go!",user:{fname, lname, email, _id, followers, following}});
+                res.send({token,message:"Login Successful! Off you go!",user:{fname, lname, email, _id, followers, following, photo}});
                 }
                 else{
                     return res.status(422)
