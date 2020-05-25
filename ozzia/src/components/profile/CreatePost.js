@@ -91,15 +91,18 @@ class CreatePost extends Component{
                     <div className="row createContainer" style={{
                         height:"max-content",
                     }}>
-                        <div className="col s3">
-                            <div className="card-panel teal" style={{
-                            height:"350px"
-                        }}> 
-                                <h5 className="white-text">
+                        <div className="col s12 m10 offset-m1 l4">
+                            <div className="card-panel teal col s12"
+                            id="cardText"
+                            style={{
+                                padding:"20px 10px"
+                            }}
+                        > 
+                                <h5 className="white-text col s12">
                                     Create A Post
                                 </h5>
-                                <hr style={{backgroundColor:"white",margin:"20px auto"}}/>
-                                <span className="white-text" style={{letterSpacing:"0.05em",fontWeight:"lighter"}}>
+                                <hr className="col s12" style={{backgroundColor:"white",margin:"20px auto"}}/>
+                                <span className="white-text col s12" style={{letterSpacing:"0.05em",fontWeight:"lighter"}}>
                                     Create a post and let everyone in the world know
                                     about it by adding tags!
                                     <br /><br />
@@ -108,14 +111,14 @@ class CreatePost extends Component{
                             </div>
                         </div>
                         
-                        <div className="col s8">
-                            <form onSubmit={this.PostDetails}>
+                        <div className="col s10 offset-s1 m8 offset-m2 l7">
+                            <form onSubmit={this.PostDetails} className="createForm">
                             <div className="input-field">
-                                <label htmlFor="title">Title:</label>
+                                <label htmlFor="title" className="flow-text">Title:</label>
                                 <input className="toChange" onChange={this.handleChange} value={this.state.title} id="title" type="text" required />
                             </div>
                             <div className="input-field">
-                                <label htmlFor="description">Description:</label>
+                                <label htmlFor="description" className="flow-text">Description:</label>
                                 <input className="toChange" onChange={this.handleChange} value={this.state.description} id="description" type="text" required />
                             </div>
                             <label style={{display:"inline-block",fontSize:'1.1em'}}>Select a Picture: </label>

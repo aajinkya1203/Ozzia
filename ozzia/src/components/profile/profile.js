@@ -132,11 +132,6 @@ const Profile=(props)=> {
                     <Navbar />
                     <div style={{maxWidth:'80%',margin:'0px auto'}}>
                         <div className="container detContainer center row"
-                            // style={{
-                            //     display:"flex",
-                            //     justifyContent:"space-around",
-                            //     margin:"18px 0px",                               
-                            // }}
                             >
                             {/* image div */}
                             <div style={{padding:'0 20px'}} className="col s12 m8 offset-m2 l6 xl4 center">
@@ -144,8 +139,6 @@ const Profile=(props)=> {
                                 src={props.user.photo} 
                                 className="responsive-img"
                                 style={{
-                                    // width: "100%",
-                                    // height:"auto",
                                     borderRadius:"1000px",
                                     marginBottom:"20px"
                                 }} 
@@ -202,7 +195,7 @@ const Profile=(props)=> {
                                     myPost.map(post=>{
                                         return(
                                             <div className="item z-depth-2 col s10 offset-s1 m6 offset-m3 l5 offset-l1 xl3 offset-l1" key={post._id} style={{marginRight:"auto"}}>
-                                                <div className="chip flow-text col s8 center" 
+                                                <div className="chip flow-text col s10 center" 
                                                 style={{margin:"5px 20px", textAlign:"start",maxWidth:"max-content",overflow:"hidden"}}
                                                 >{ post.tag }</div>
                                                 <div className="col s12"

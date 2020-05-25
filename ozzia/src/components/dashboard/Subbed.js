@@ -157,26 +157,30 @@ const Subbed=(props)=> {
                         {
                             data.length!==0 ? data.map(item=>{
                                 return(
-                                    <div className="card homeCard" key={item._id}>
+                                    <div className="card homeCard" key={item._id} style={{padding:'14px'}}>
                                         <Link to={
                                             item.PostedBy._id.toString() === props.user._id.toString() ?
                                             '/profile' :
                                             `/profile/${ item.PostedBy._id }`
                                             }>
-                                            <div className="chip" style={{margin:"5px 20px"}}>
+                                            <div className="chip flow-text col s8 center" 
+                                             style={{margin:"5px 20px", textAlign:"start",maxWidth:"max-content",overflow:"hidden"}}
+                                             >
                                                 <img alt="post" 
                                                 src={item.PostedBy.photo} />
                                                 { item.PostedBy.fname + item.PostedBy.lname }
                                             </div>
-                                            <span style={{ padding:"0 5px" }}>|</span>
-                                            <div className="chip" style={{margin:"5px 20px"}}>
+                                            {/* <span style={{ padding:"0 5px" }}>|</span> */}
+                                            <div className="chip flow-text col s8 center"
+                                             style={{margin:"5px 20px", textAlign:"start",maxWidth:"max-content",overflow:"hidden"}}
+                                             >
                                                 { item.tag }
                                             </div>
                                         </Link>
                                         {
                                             item.PostedBy._id.toString() == props.user._id.toString()
-                                                && <i className="material-icons"  title="Delete Post?"
-                                                style={{float:"right",cursor:"pointer"}}
+                                                && <i className="material-icons col s2 offset-s1"  title="Delete Post?"
+                                                style={{float:"right",cursor:"pointer",margin:"10px"}}
                                                 onClick={()=>{
                                                     if(window.confirm("Permanently Delete this Post?")===true){
                                                         DeletePost(item._id)
@@ -185,10 +189,10 @@ const Subbed=(props)=> {
                                             >delete_forever</i>
                                         }
                                         
-                                        <hr className="sepeation" />
-                                        <div className="card-image">
+                                        <hr className="sepeation col s12 offset-s1" />
+                                        <div className="card-image col s12">
                                             <img href="#!" alt="post" src={ item.photo } />
-                                            <a className="btn-floating #FFB74D orange lighten-2 btn-large halfway-fab waves-effect waves-light red"
+                                            <a className="col s12 btn-floating #FFB74D orange lighten-2 btn-small halfway-fab waves-effect waves-light red"
                                             onMouseUp={()=>{
                                                 document.querySelectorAll(".waves-ripple ").forEach(item=>{item.style.opacity=0})
                                             }}>
@@ -224,20 +228,23 @@ const Subbed=(props)=> {
                                                 
                                             </a>
                                         </div>
-                                        <div className="card-content">
-                                            <span className="card-title"
-                                                style={{fontSize:"16px"}}
+                                        <div className="card-content col s12" style={{padding:"16px"}}>
+                                            <span className="card-title col s3 flow-text likeText"
+                                                style={{fontSize:"7vw"}}
                                             >{ item.likes.length } likes</span>
-                                            <span className="card-title">{ item.title }</span>
-                                            <p>{ item.description }</p>
+                                            <span className="card-title flow-text postTitle"
+                                                style={{fontSize:"10vw"}}
+                                            >{ item.title }</span>
+                                            <p style={{fontsize:"8vw"}} className="bodyText">{ item.description }</p>
                                             {
                                                 item.comments && item.comments.map(comment=>{
                                                 return(
-                                                <h6 key={comment._id}>
-                                                        <span style={{fontWeight:"bolder", padding:"0 5px"}}>{ comment.postedBy.fname +' '+ comment.postedBy.lname }</span> { comment.text }
+                                                <h6 key={comment._id} className="col s8 flow-text commentText">
+                                                        <span className="col s8 flow-text"
+                                                         style={{fontWeight:"bolder", padding:"0 5px"}}>{ comment.postedBy.fname +' '+ comment.postedBy.lname }</span> { comment.text }
                                                         {
                                                             comment.postedBy._id.toString() == props.user._id.toString()
-                                                            ? <i className="material-icons"  title="Delete Post?"
+                                                            ? <i className="material-icons col s2 offset-s1"  title="Delete Post?"
                                                                 style={{float:"right",cursor:"pointer"}}
                                                                 onClick={()=>{
                                                                     if(window.confirm("Permanently Delete this Comment?")===true){
