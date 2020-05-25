@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import introCover from '../../images/introCover1.svg';
+import introCover2 from '../../images/introCover2.svg';
 import introCovered from '../../images/introCover.gif';
 import Features from './features';
 import IntroFooter from './introFooter';
@@ -20,9 +21,10 @@ const Intro = (props) => {
             <Navbar />
             <div className="section white row">
                 <div className="container introSection col s12">
-                    <img src={introCovered} alt="cover" className="col s12" />
-                    <h2 className="header col s12 center">ozzia</h2>
-                    <p className="grey-text text-darken-3 lighten-3 col s12 center">
+                    <img src={introCovered} alt="cover" className="col s12 l6 push-l6" />
+                    <h2 className="header col s12 l6 pull-l6 center" id="ozziaTitle"
+                    >ozzia</h2>
+                    <p id="tagline" className="grey-text text-darken-3 lighten-3 col s12 l6 pull-l6 center">
                         <i>
                             A place to share, discuss and enjoy!
                         </i>
@@ -30,13 +32,6 @@ const Intro = (props) => {
 
                 </div>
             </div>
-
-            {/* <div className="parallax-container col s12">
-                <div className="parallax col s12">
-                    <img src={introCover} alt="cover" className="col s12 responsive-img" />
-                </div>
-            </div> */}
-
             <div id="index-banner" className="parallax-container">
                 <div className="section no-pad-bot">
                     <div className="container">
@@ -57,7 +52,26 @@ const Intro = (props) => {
             </div>
 
             <Features />
-            {/* <IntroFooter /> */}
+
+            <div id="index-banner" className="parallax-container">
+                <div className="section no-pad-bot">
+                    <div className="container">
+                        <br /><br />
+                        <h1 className="header center black-text text-lighten-2">Hop On!</h1>
+                        <div className="row center">
+                            <h5 className="header black-text col s12 light">What are you waiting for? Sign Up now!</h5>
+                        </div>
+                        <div className="row center">
+                        <Link to="/signup" id="download-button" className="btn-large waves-effect waves-light teal lighten-1">Sign Up Now</Link>
+                        </div>
+                        <br /><br />
+                    </div>
+                </div>
+                <div className="parallax">
+                    <img src={introCover2} alt="Features Cover Picture" />
+                </div>
+            </div>
+            <IntroFooter />
             
         </div>
     )

@@ -4,11 +4,6 @@ import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 
 const SideTags=(props)=>{
-    // if(props.user===null && localStorage.getItem("jwt")){
-    //     props.updateRedux()
-    // }
-    // if(!props.user) return <Redirect to= {`/profile/${props.match.params.id}`} />
-    // if(!localStorage.getItem("user")) return <Redirect to='/' />
     useEffect(()=>{
         window.$(document).ready(function(){
             window.$('.sidenav').sidenav();
@@ -40,7 +35,7 @@ const SideTags=(props)=>{
                             </div>
                         </li>
                         <li>
-                            <a href="javascript:void(0)">
+                            <a href="#!">
                                 <i className="material-icons flow-text">lightbulb_outline</i>
                                     Browse More Tags
                             </a>

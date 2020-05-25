@@ -24,6 +24,17 @@ router.get('/subbedPost',requiredLogin,(req,res)=>{
         })
 })
 
+router.get('/post/:id',requiredLogin,(req,res)=>{
+    PostModel.find({_id:req.params.id})
+    .populate("PostedBy","_id fname lname photo")
+    .populate("comments.postedBy","_id fname lname photo")
+    .then(result=>{
+        res.send({result})
+    }).catch(err=>{
+        console.log(err);
+        res.status(422).send({error:err})
+    })
+})
 
 router.post('/create',requiredLogin,(req,res)=>{
     const { title, description, tag, picUrl } = req.body;
@@ -159,4 +170,5 @@ router.put('/unlike',requiredLogin,(req,res)=>{
         }
     })
 })
+
 module.exports = router;

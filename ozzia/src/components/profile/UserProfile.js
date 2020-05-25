@@ -215,19 +215,21 @@ const UserProfile=(props)=> {
                                                 <div className="chip flow-text col s8 center"  
                                                 style={{margin:"5px 20px", textAlign:"start",maxWidth:"max-content",overflow:"hidden"}}
                                                 >{ post.tag }</div>
-                                                <div className="col s12"
-                                                    style={{
-                                                    display:"block",
-                                                    overflow:"hidden",
-                                                    height:"199px",
-                                                    textAlign:"center"
-                                                    }}
-                                                >
-                                                    <img className="itemImg"
-                                                    style={{height:"100%",width:"auto",margin:"5px auto"}}
-                                                    src={ post.photo } 
-                                                    alt="post"/>
-                                                </div>
+                                                <Link to={`/post/${post._id}`}>
+                                                    <div className="col s12"
+                                                        style={{
+                                                        display:"block",
+                                                        overflow:"hidden",
+                                                        height:"199px",
+                                                        textAlign:"center"
+                                                        }}
+                                                    >
+                                                        <img className="itemImg"
+                                                        style={{height:"100%",width:"auto",margin:"5px auto"}}
+                                                        src={ post.photo } 
+                                                        alt="post"/>
+                                                    </div>
+                                                </Link>
                                                 {
                                                     post.likes.includes(props.user._id) ? (
                                                         <i className="material-icons like red-text right"

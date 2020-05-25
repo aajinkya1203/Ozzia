@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const uri = require('./keys').MONGODB_URI;
+const uri = require('./config/keys').MONGODB_URI;
 
 // creating app using express
 const app = express();
@@ -11,6 +11,16 @@ app.use(bodyParser.json());
 app.use(require('./routes/auth'));
 app.use(require('./routes/post'));
 app.use(require('./routes/user'));
+// app.use(express.static(__dirname+'/ozzia/src/style.css'))
+
+if(process.env.NODE_ENV=="production"){
+    app.use(express.static('ozzia/build'));
+    const path = require('path');
+    app.get('*',(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'ozzia','build','index.html'))
+    })
+}
+
 
 // connecting to mongodb atlas
 var options = {
@@ -36,7 +46,7 @@ mongoose.connection.on('error',(err)=>{
 
 
 // listening on port
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT,()=>{
     console.log("Listening on port",PORT);
 });

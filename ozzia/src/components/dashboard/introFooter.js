@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import githubIcon from '../../images/GitHubIcon.svg'
 
 const IntroFooter=()=> {
     useEffect(()=>{
@@ -28,9 +29,23 @@ const IntroFooter=()=> {
                 <h5 className="white-text">
                   Made with <span role="img" aria-label="heart">❤️</span>
                 </h5>
-                <ul>
-                  <li id="github-embed">
-                  <div className="github-card" data-github="aajinkya1203" data-width="400" data-height="317" data-theme="medium"></div>
+                <ul className="col s12">
+                  <li id="github-embed" className="col s12">
+                    <div className="github-card" 
+                      style={{
+                        maxWidth:"100%",
+                        height:"auto"
+                      }}
+                    data-github="aajinkya1203" data-height="215px" data-width="300px" data-theme="medium">
+                    </div>
+                  </li>
+                  <li>
+                    <a href="https://github.com/aajinkya1203" target="__blank">
+                      <div className="chip">
+                        <img src={githubIcon} alt="Contact Person" />
+                        Github
+                      </div>
+                    </a>
                   </li>
                 </ul>
               </div>
