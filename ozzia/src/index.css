@@ -55,14 +55,37 @@ ul li a{
   color: white !important;
   background-color: #5e0120 !important;
 }
+.featTab{
+  margin:10px auto !important;
+}
 
-.parallax-container {
-  height: 650px;
+/* .parallax img {
+  @media #{$small-and-down} { max-width: 200%; };
+  @media #{$medium-and-up} { width: 100%; }
+} */
+
+@media only screen and (max-width : 992px) {
+  .parallax img {
+    max-height: 130%; /* or a little bit higher */
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .parallax img {
+    max-height: 170%; /* or higher percentages. It's up to your taste */
+  }
 }
 
 
 /* home page designs */
-.introSection{
+
+.introSection h2{
+  letter-spacing: 0.2em;
+  font-weight: 800;
+  font-family:'Open Sans', sans-serif;
+}
+
+/* .introSection{
   width:100%;
   display: grid;
   grid-template-columns: repeat(10,1fr);
@@ -80,29 +103,32 @@ ul li a{
   grid-column: 2/5;
   justify-self: end;
   font-size: 70px;;
-  letter-spacing: 0.2em;
   grid-row: 2 / 3;
+  letter-spacing: 0.2em;
   font-weight: 800;
-  font-family:'Open Sans', sans-serif;;
+  font-family:'Open Sans', sans-serif;
 }
 .introSection p{
   grid-column: 2 / 5;
   grid-row: 2 / 3;
   align-self: center;
   justify-self: center;
-}
+} */
+
 /* styling the features tab */
+/* 
 .featImg{
   border-radius: 24px;
-}
+} */
 
 /* signup */
-html, body,#root, #signrow, #signrow>div,#formbar,.loading {
+html, body,#root, #formbar,.loading {
   height: 100%;
   box-sizing: border-box !important;
 }
 #signrow{
   margin-bottom: 0;
+  background-color: #F8AEAE;
 }
 .sidebar{
   background-color: #F8AEAE;
@@ -166,6 +192,8 @@ hr{
 }
 #formbar{
   padding: 40px 10px;
+  border-radius: 24px 24px 0 0;
+  background-color: white;
 }
 #sbmt{
   color: #fff;
@@ -292,6 +320,10 @@ hr{
   font-size: 6vw;
 }
 
+.sidebar{
+  height:"max-content" !important;
+}
+
 @media only screen and (min-width:993px){
   #cardText{
     height: 350px !important;
@@ -320,5 +352,14 @@ hr{
   #effectLike i{
     line-height: 56px;
     font-size: 1.6rem;
+  }
+}
+@media only screen and (min-width:993px){
+  html, body,#root,#signrow, #signrow>div, #formbar,.loading {
+    height: 100%;
+    box-sizing: border-box !important;
+  }
+  #formbar{
+    border-radius: 0 !important ;
   }
 }

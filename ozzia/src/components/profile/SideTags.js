@@ -28,15 +28,15 @@ const SideTags=(props)=>{
                                 <div className="background">
                                     <img src={ pewdsBG } />
                                 </div>
-                                <a href="#user">
+                                <Link to="/profile">
                                     <img className="circle" src={props.user.photo}/>
-                                </a>
-                                <a href="#name">
+                                </Link>
+                                <Link to="/profile">
                                 <span className="white-text name flow-text">{ props.user.fname +" "+props.user.lname }</span>
-                                </a>
-                                <a href="#email">
+                                </Link>
+                                <Link to="/profile">
                                     <span className="white-text email flow-text">{ props.user.email }</span>
-                                </a>
+                                </Link>
                             </div>
                         </li>
                         <li>

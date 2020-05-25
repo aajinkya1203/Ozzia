@@ -54,18 +54,20 @@ class Login extends Component {
         if(this.props.user) return <Redirect to='/home' />
         return (
             <div className="row" id="signrow">
-                <div className="sidebar col s5">
-                <Link to="/">
-                    <h2 className="signupTitle">
-                        Ozzia
-                    </h2>
-                </Link>
+                <div className="sidebar col s12 m10 offset-m1 l4">
+                    <Link to="/">
+                        <h2 className="signupTitle">
+                            Ozzia
+                        </h2>
+                    </Link>
                     <p className="signupBody">
                         <i>
                             Your own personal space!
                         </i>
                     </p>
-                    <h5 className="redirect">
+                    <h5 className="redirect center likeText"
+                        style={{fontSize:"6vw"}}
+                    >
                         Do not have an account?
                         <br />
                         <Link to="/signup" className="hyper">
@@ -73,8 +75,10 @@ class Login extends Component {
                         </Link>
                     </h5>
                 </div>
-                <form className="col s7" id="formbar" onSubmit={this.handleSubmit}>
-                    <h4 className="formTitle">
+                <form className="col s12 m10 offset-m1 l8" id="formbar" onSubmit={this.handleSubmit}>
+                    <h4 className="formTitle postTitle"
+                        style={{fontSize:"10vw"}}
+                    >
                         Log Into Your Account !
                     </h4>
                     <hr/>

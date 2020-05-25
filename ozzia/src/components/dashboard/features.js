@@ -5,29 +5,44 @@ import feature3 from '../../images/featureFollow.gif';
 
 const features=()=>{
     return(
-        <div className="section white">
-                <div className="row container">
-                    <img src={ feature1 } alt="feature 1" className="featImg col s4 responsive-img"/>
-                    <h2 className="header col s8">Browse as per your desired topics!</h2>
-                    <p className="grey-text text-darken-3 lighten-3 col s8">
+        <div className="section white col s12">
+                <div className="row container center featTab">
+                    <h2 className="header flow-text postTitle col s12 center"
+                        style={{
+                            fontSize:"10vw",
+                            padding:'0'
+                        }}
+                    >Browse as per your desired topics!</h2>
+                    <img src={ feature1 } alt="feature 1" className="featImg col s10 offset-s1 responsive-img"/>
+                    <p className="grey-text text-darken-3 lighten-3 col s10 offset-s1 center">
                         Tune into any topic that interests you and share 
                         your stories and experience with others on that
                         topic!
                     </p>
                 </div>
-                <div className="row container">
-                    <h2 className="header col s8">Like and comment as per your wish!</h2>
-                    <p className="grey-text text-darken-3 lighten-3 col s8">
+                <div className="row container center featTab">
+                    <h2 className="header flow-text postTitle col s12 center"
+                        style={{
+                            fontSize:"10vw",
+                            padding:'0'
+                        }}
+                    >Like and comment as per your wish!</h2>
+                    <img src={ feature2 } alt="feature 1" className="featImg col s8 offset-s1 responsive-img"/>
+                    <p className="grey-text text-darken-3 lighten-3 col s10 offset-s1 center">
                         Real-time like and commenting feature included just
                         like any of your normal app, so you dont miss any of
                         those features!
                     </p>
-                    <img src={ feature2 } alt="feature 1" className="featImg col s4 responsive-img"/>
                 </div>
-                <div className="row container">
-                    <img src={ feature3 } alt="feature 1" className="featImg col s4 responsive-img"/>
-                    <h2 className="header col s8">Expand your reach!</h2>
-                    <p className="grey-text text-darken-3 lighten-3 col s8">
+                <div className="row container center featTab">
+                    <h2 className="header flow-text postTitle col s12 center"
+                        style={{
+                            fontSize:"10vw",
+                            padding:'0'
+                        }}
+                    >Expand your reach!</h2>
+                    <img src={ feature3 } alt="feature 1" className="featImg col s8 offset-s1 responsive-img"/>
+                    <p className="grey-text text-darken-3 lighten-3 col s10 offset-s1 center">
                         Follow your friends to look at their posts on an individual
                         pane! Less clutter, more content!
                     </p>
