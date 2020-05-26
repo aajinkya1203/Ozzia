@@ -4,7 +4,9 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './index.css';
 import intro from './components/dashboard/intro';
 import Signup from './components/auth/Signup'
-import Login from './components/auth/Login'
+import Login from './components/auth/Login';
+import Reset from './components/auth/Reset';
+import NewPassword from './components/auth/NewPassword';
 import Profile from './components/profile/profile';
 import UserProfile from './components/profile/UserProfile';
 import Home from './components/dashboard/home';
@@ -20,6 +22,8 @@ function App() {
         <Switch>
           <Route exact path="/" component = { intro } />
           <Route path="/signup" component = { Signup } />
+          <Route exact path="/reset" component = { Reset } />
+          <Route path="/reset/:token" component = { NewPassword } />
           <Route path="/login" component = { Login } />
           <Route path="/profile/:id" component = { UserProfile } />
           <Route path="/profile" component = { Profile } />

@@ -6,6 +6,11 @@ import { connect } from 'react-redux'
 const SignedInLinks=(props)=> {
     return (
         <ul id="nav-mobile" className={props.classID}>
+            <li>
+                <Link data-target="modal1" className="waves-effect waves-light modal-trigger">
+                    <i className="material-icons">search</i>
+                </Link>
+            </li>
             <li><Link to="/create" className="waves-effect waves-light">Create Post</Link></li>
             {/* <li><Link to="/create" className="waves-effect waves-light">Notifications</Link></li> */}
             <li><Link to="/subbed" className="waves-effect waves-light">Your Friends' Posts</Link></li>

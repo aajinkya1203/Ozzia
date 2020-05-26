@@ -7,6 +7,7 @@ router.get('/home',(req,res)=>{
     PostModel.find()
         .populate("PostedBy","_id fname lname photo")
         .populate("comments.postedBy","_id fname lname photo")
+        .sort('-createdAt')
         .then(posts=>{
             res.send({posts})
         }).catch(err=>{
@@ -17,6 +18,7 @@ router.get('/subbedPost',requiredLogin,(req,res)=>{
     PostModel.find({PostedBy:{$in:req.user.following}})
         .populate("PostedBy","_id fname lname photo")
         .populate("comments.postedBy","_id fname lname photo")
+        .sort('-createdAt')
         .then(posts=>{
             res.send({posts})
         }).catch(err=>{
@@ -28,6 +30,7 @@ router.get('/post/:id',requiredLogin,(req,res)=>{
     PostModel.find({_id:req.params.id})
     .populate("PostedBy","_id fname lname photo")
     .populate("comments.postedBy","_id fname lname photo")
+    .sort('-createdAt')
     .then(result=>{
         res.send({result})
     }).catch(err=>{
@@ -59,6 +62,7 @@ router.get('/myposts',requiredLogin,(req,res)=>{
     PostModel.find({PostedBy:req.user._id})
         .populate("PostedBy","_id fname lname photo")
         .populate("comments.postedBy","lname fname _id photo")
+        .sort('-createdAt')
         .then(posted=>{
             res.send({myposts:posted})
         }).catch(err=>{
@@ -71,6 +75,7 @@ router.get('/home/:tag',requiredLogin,(req,res)=>{
     PostModel.find({tag:req.params.tag})
         .populate("PostedBy","_id fname lname photo")
         .populate("comments.postedBy","lname fname _id photo")
+        .sort('-createdAt')
         .then(posts=>{
             console.log(posts)
             res.send({group:posts})
@@ -170,5 +175,6 @@ router.put('/unlike',requiredLogin,(req,res)=>{
         }
     })
 })
+
 
 module.exports = router;

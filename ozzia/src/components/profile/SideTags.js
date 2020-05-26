@@ -48,7 +48,7 @@ const SideTags=(props)=>{
                         <li><Link className="waves-effect flow-text" to="/home/Animals">Animals</Link></li>
                         <li><Link className="waves-effect flow-text" to="/home/Meme">Meme</Link></li>
                         <li><Link className="waves-effect flow-text" to="/home/Anime">Anime</Link></li>
-                        <li><Link className="waves-effect flow-text" to="/home/Ask Ozzia">Ask Ozzia</Link></li>
+                        <li><Link className="waves-effect flow-text" to="/home/Ask ozzia">Ask Ozzia</Link></li>
                         <li><Link className="waves-effect flow-text" to="/home/Car">Car</Link></li>
                         <li><Link className="waves-effect flow-text" to="/home/Gaming">Gaming</Link></li>
                         <li><Link className="waves-effect flow-text" to="/home/Music">Music</Link></li>

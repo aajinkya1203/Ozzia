@@ -84,4 +84,16 @@ router.put('/updatePic',requiredLogin,(req,res)=>{
     })
 })
 
+router.post('/search-users',(req,res)=>{
+    const regexUser = new RegExp('^'+req.body.query);
+    UserModel.find({email:regexUser})
+    .select('_id fname lname email photo')
+    .then(result=>{
+        res.send({result})
+    }).catch(err=>{
+        console.log(err)
+    })
+})
+
+
 module.exports = router;

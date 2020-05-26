@@ -14,6 +14,8 @@ const UserSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    resetToken:String,
+    expiry:Date,
     password:{
         type:String,
         required:true

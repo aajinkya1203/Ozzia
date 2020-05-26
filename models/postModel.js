@@ -33,6 +33,6 @@ const postSchema = new mongoose.Schema({
         type: ObjectId,
         ref:"User"
     }
-})
+},{timestamps:true})
 
 module.exports = mongoose.model("Post",postSchema);
