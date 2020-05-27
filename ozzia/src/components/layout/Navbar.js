@@ -47,7 +47,7 @@ const Navbar=(props)=> {
                     </div>
                 </li>
 
-                <li><Link data-target="modal1" className="waves-effect waves-light modal-trigger">
+                <li><Link data-target="modal12" className="waves-effect waves-light modal-trigger">
                 <i className="material-icons">search</i>
                 </Link></li>
                 <li><Link to="/create" className="waves-effect waves-light">Create Post</Link></li>
@@ -106,7 +106,7 @@ const Navbar=(props)=> {
                 </div>
             </nav>
             { sideRender }
-            <div id="modal1" className="modal">
+            <div id="modal12" className="modal">
                 <div className="modal-content">
                 <div className="input-field">
                     <input className="toChange" onChange={(e)=>SearchUsers(e.target.value)} value={search} type="text" id="searc" name="searc" required/>

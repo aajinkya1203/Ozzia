@@ -7,7 +7,7 @@ const SignedInLinks=(props)=> {
     return (
         <ul id="nav-mobile" className={props.classID}>
             <li>
-                <Link data-target="modal1" className="waves-effect waves-light modal-trigger">
+                <Link data-target="modal12" className="waves-effect waves-light modal-trigger">
                     <i className="material-icons">search</i>
                 </Link>
             </li>
