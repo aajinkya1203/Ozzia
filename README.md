@@ -11,7 +11,7 @@ So do whatever you can, like, comment, post, follow/unfollow, the services are t
 >This is a solo project made by me and is made entirely with MongoDB, Express, React and NodeJS (MERN Stacks). Look at the Credits part for more details on me and my other projects!
 
 ## Screenshots
-<p>
+<p align="center>
   <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/home.gif" alt="Working Demo">
   <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/intro.gif" alt="Working Demo">
   <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/intro2.gif" alt="Working Demo">
