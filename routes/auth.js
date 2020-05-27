@@ -11,18 +11,18 @@ const { SIGNUP_API,EMAIL,USER_API,RESET_API } = require('../config/keys')
 
 
 router.post('/signup',(req,res)=>{
-    const { fname, lname, email, password, picUrl } = req.body;
+    var { fname, lname, email, password, picUrl } = req.body;
     console.log(req.body)
     if(!email || !fname || !lname || !password){
         return res.status(422)
                 .send({error:"Kindly provide all details"});
     }
+    email = email.toLowerCase();
     User.findOne({email:email}).then((result)=>{
         if(result){
             return res.status(422)
                     .send({error:"An account with the same email already exist! Try Logging in!"})
         }
-
         bcrypt.hash(password,15).then(hashedpwd=>{
             const newUser = new User({
                 fname,
@@ -56,13 +56,13 @@ router.post('/signup',(req,res)=>{
 })
 
 router.post('/login',(req,res)=>{
-    const { email, password } = req.body;
+    var { email, password } = req.body;
     // checking if all information has been provided
     if( !email || !password ){
         return res.status(422)
                 .send({error:"Kindly provide all the necessary credentials for logging in!"});
     }
-
+    email = email.toLowerCase();
     User.findOne({email:email}).then(savedUser=>{
         if(!savedUser){
             return res.status(422)
@@ -73,9 +73,9 @@ router.post('/login',(req,res)=>{
                 if(didMatch){
                     // res.send({message:"Successfully logged in!"})
                     const token = jwt.sign({_id:savedUser._id},JWT_SECRET);
-                    const { fname, lname, email, _id, followers, following, photo } = savedUser;
-                
-                res.send({token,message:"Login Successful! Off you go!",user:{fname, lname, email, _id, followers, following, photo}});
+                    var { fname, lname, email, _id, followers, following, photo } = savedUser;
+                    email = email.toLowerCase();
+                    res.send({token,message:"Login Successful! Off you go!",user:{fname, lname, email, _id, followers, following, photo}});
                 }
                 else{
                     return res.status(422)
@@ -99,7 +99,8 @@ router.post('/reset-password',(req,res)=>{
             console.log(err)
         }
         const token = buffer.toString("hex");
-        User.findOne({email:req.body.email}).then(user=>{
+        const bodyEmail = req.body.email.toLowerCase();
+        User.findOne({email:bodyEmail}).then(user=>{
             if(!user){
                 return res.status(422).send({error:"User doesn't exists with that account! Oopsie!"})
             }

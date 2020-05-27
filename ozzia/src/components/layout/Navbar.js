@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 import { connect } from 'react-redux';
-import pewdsBG from '../../images/pewdsBG.png'
+import pewdsBG from '../../images/pewdsBG.png';
+import empty from '../../images/emptyResults.svg'
 
 const Navbar=(props)=> {
     const [search,setSearch] = useState('');
@@ -122,12 +123,15 @@ const Navbar=(props)=> {
                                         <img src={user.photo} alt="Avatar" className="circle" />
                                         <span className="title">{ user.fname +' '+user.lname }</span>
                                         <p>{ user.email }</p>
-                                        <a href="#!" className="secondary-content"><i className="material-icons">grade</i></a>
                                     </Link>
                                 </li>
                             )
                         })
-                    ): null
+                    ): (
+                        <div className="container notFound">
+                            <img src={empty} className="responsive-img" alt="empty" />
+                        </div>
+                    )
                 }
                 </ul>
                 </div>

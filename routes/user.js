@@ -85,7 +85,8 @@ router.put('/updatePic',requiredLogin,(req,res)=>{
 })
 
 router.post('/search-users',(req,res)=>{
-    const regexUser = new RegExp('^'+req.body.query);
+    const bodyUser = req.body.query.toLowerCase();
+    const regexUser = new RegExp('^'+bodyUser);
     UserModel.find({email:regexUser})
     .select('_id fname lname email photo')
     .then(result=>{
