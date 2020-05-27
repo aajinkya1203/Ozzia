@@ -4,6 +4,7 @@ import '../../index.css';
 import M from 'materialize-css';
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import * as emailjs from 'emailjs-com'
 
 class Signup extends Component {
     state={
@@ -76,6 +77,18 @@ class Signup extends Component {
                 document.getElementById("loader").className="";
                 M.toast({html:data.error});
             }else{
+                console.log(data.EMAIL);
+                var templateParams = {
+                    fname:this.state.fname,
+                    to_name:this.state.email,
+                    EMAIL:data.EMAIL
+                };
+                emailjs.send('gmail',data.SIGNUP_API,templateParams,data.USER_API)
+                .then((response)=>{
+                    console.log('SUCCESS!', response.status, response.text);
+                  }).catch(err=>{
+                    console.log('FAILED...', err);
+                });
                 M.toast({html:data.message});
                 this.props.history.push('/login');
             }

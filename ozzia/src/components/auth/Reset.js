@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../../index.css';
 import M from 'materialize-css';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import * as emailjs from 'emailjs-com';
 
 class Reset extends Component {
     state={
@@ -32,10 +32,23 @@ class Reset extends Component {
                 email:this.state.email
             })
         }).then(res=>res.json()).then(data=>{
+            console.log(data)
             if(data.error){
                 document.getElementById("loader").className="";
                 M.toast({html:data.error});
             }else{
+                console.log(data.EMAIL);
+                var templateParams = {
+                    token:data.token,
+                    to_name:this.state.email,
+                    EMAIL:data.EMAIL
+                };
+                emailjs.send('gmail',data.RESET_API,templateParams,data.USER_API)
+                .then((response)=>{
+                    console.log('SUCCESS!', response.status, response.text);
+                  }).catch(err=>{
+                    console.log('FAILED...', err);
+                });
                 M.toast({html:data.message});
                 this.props.history.push('/login');
             }
@@ -94,18 +107,4 @@ class Reset extends Component {
     }
 }
 
-// const mapStateToProps=(state)=>{
-//     console.log(state);
-//     return{
-//         user:state.user
-//     }
-// }
-
-// const mapDispatchToProps=(dispatch)=>{
-//     return{
-//         userDetail:(dets)=>dispatch({type:"USER",payload:dets}),
-//         updateRedux:()=>dispatch({type:"ALL"})
-//     }
-// }
-// connect(mapStateToProps, mapDispatchToProps)
 export default Reset
