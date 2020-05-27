@@ -12,7 +12,12 @@ So do whatever you can, like, comment, post, follow/unfollow, the services are t
 
 ## Screenshots
 <p>
- 
+  <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/home.gif" alt="Working Demo">
+  <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/intro.gif" alt="Working Demo">
+  <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/intro2.gif" alt="Working Demo">
+  <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/intro3.gif" alt="Working Demo">
+  <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/intro4.gif" alt="Working Demo">
+  <img src="https://github.com/aajinkya1203/Ozzia/blob/master/ozzia/src/images/Screenshots/intro5.gif" alt="Working Demo">
 </p>
 
 
